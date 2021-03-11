@@ -1,13 +1,13 @@
-package cn.coderap.course;
+package cn.coderap.eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CourseApplication {
+public class EurekaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CourseApplication.class, args);
+		SpringApplication.run(EurekaApplication.class, args);
 	}
 
 }

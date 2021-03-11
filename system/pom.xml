@@ -23,6 +23,12 @@
 
     <dependencies>
         <!--将system模块作为eureka的客户端，即将该模块注册到eureka中-->
+        <!--将system模块(服务)注册到注册中心，分三步：
+        1、引入spring-cloud-starter-netflix-eureka-client依赖
+        2、system的application.yml中增加配置：eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+        3、在system的启动类中添加@EnableEurekaClient
+        -->
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>

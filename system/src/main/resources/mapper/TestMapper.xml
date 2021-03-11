@@ -3,6 +3,11 @@
 
 <mapper namespace="cn.coderap.system.mapper.TestMapper">
     <select id="list" resultType="cn.coderap.system.pojo.Test">
+        <!--
+        优化：
+        1、使用IDEA的Database插件连接数据库，在写sql时有提示；
+        2、注意sql末尾不要带分号
+        -->
         SELECT * FROM test
     </select>
 </mapper>

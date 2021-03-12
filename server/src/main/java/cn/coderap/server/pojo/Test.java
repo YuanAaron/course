@@ -1,4 +1,4 @@
-package cn.coderap.system.pojo;
+package cn.coderap.server.pojo;
 
 /**
  * 搭建公共服务模块server的必要性：这里的server不仅包括common，还包括一些业务

@@ -1,4 +1,4 @@
-package cn.coderap.system;
+package cn.coderap.system.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;

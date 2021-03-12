@@ -10,7 +10,7 @@
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
 
-        <!--覆盖生成XML文件-->
+        <!--覆盖生成XML文件：通过覆盖来解决多次执行时mapper.xml重复生成代码的问题-->
         <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
         <!-- 生成的实体类添加toString()方法 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />

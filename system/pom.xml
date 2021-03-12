@@ -47,6 +47,16 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
+        <!--为system模块添加热部署DevTools：
+        1、在system模块引入spring-boot-devtools依赖
+        2、settings中搜索Compiler，然后将build project automatically
+        3、Ctrl+Shift+A调出find Action,然后搜索Registry,最后将compiler.automake.allow.when.app.running勾选
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

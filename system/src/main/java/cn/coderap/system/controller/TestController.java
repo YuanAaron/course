@@ -1,8 +1,7 @@
 package cn.coderap.system.controller;
 
-import cn.coderap.system.pojo.Test;
-import cn.coderap.system.service.TestService;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.coderap.server.pojo.Test;
+import cn.coderap.server.service.TestService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

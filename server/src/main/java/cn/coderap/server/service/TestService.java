@@ -2,6 +2,7 @@ package cn.coderap.server.service;
 
 import cn.coderap.server.mapper.TestMapper;
 import cn.coderap.server.pojo.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,7 +15,7 @@ import java.util.List;
 @Service
 public class TestService {
 
-    @Resource //TODO @Resource和@Autowired有啥区别？
+    @Autowired //TODO @Resource和@Autowired有啥区别？
     private TestMapper testMapper;
 
     public List<Test> list() {

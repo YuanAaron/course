@@ -6,11 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan("cn.coderap.system.mapper")
+@ComponentScan("cn.coderap") //不加只能扫描到SystemApplication所在包（cn.coderap.system）及子包，加上能扫描cn.coderap及其子包
+@MapperScan("cn.coderap.server.mapper")
 public class SystemApplication {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SystemApplication.class);

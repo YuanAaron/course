@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS `chapter`;
+CREATE TABLE `chapter`
+(
+    `id`        char(8) NOT NULL COMMENT 'ID',
+    `course_id` char(8)     DEFAULT NULL COMMENT '课程ID',
+    `name`      varchar(50) DEFAULT NULL COMMENT '名称',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT = '大章';
+
+-- 测试
+
 drop table if exists `test`;
 create table `test` (
     `id` char(8) not null default '' comment '主键',

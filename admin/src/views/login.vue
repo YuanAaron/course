@@ -78,10 +78,20 @@ vue文件一般由template、script、style三部分组成，
   </div><!-- /.main-container -->
 </template>
 
+
 <script>
-$('body').attr('class', 'login-layout light-login');
+
+//vue组件中有很多钩子函数，mounted和created都是vue的初始化函数，区别：
+//created执行更早，在界面渲染之前执行，常用于加载初始化数据；
+//mounted在界面渲染之后执行，常用于对界面元素的初始化操作
 export default {
-  name: 'login',
+  name: 'admin',
+  //mounted引入的目的：login页和admin页的body样式互相影响
+  mounted: function() {
+    $('body').removeClass('no-skin');
+    $('body').attr('class', 'login-layout light-login');
+    // console.log("login");
+  },
   methods: {
     login() {
       this.$router.push("/admin");

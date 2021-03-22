@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './views/login.vue'
 import Admin from './views/admin.vue'
+import Welcome from './views/admin/welcom'
 
 Vue.use(Router);
 
@@ -16,6 +17,10 @@ export default new Router({
     component: Login
   },{
     path: '/admin',
-    component: Admin
+    component: Admin,
+    children: [{
+      path: 'welcome', //注意子路由不能有/
+      component: Welcome
+    }]
   }]
 })

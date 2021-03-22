@@ -977,6 +977,6 @@
 </template>
 
 <script>
-$('body').removeClass('class', 'login-layout light-login');
+$('body').removeClass('login-layout light-login');
 $('body').attr('class', 'no-skin');
 </script>

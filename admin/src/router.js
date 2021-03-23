@@ -17,13 +17,16 @@ export default new Router({
     path: '/login',
     component: Login
   },{
-    path: '/admin',
+    path: '/',
+    name: 'admin', //添加name属性，后续做通用的sidebar激活样式方法时会用到
     component: Admin,
     children: [{
       path: 'welcome', //注意子路由不能有/
+      name: 'welcome',
       component: Welcome
     },{
       path: 'business/chapter',
+      name: 'business/chapter',
       component: Chapter
     }]
   }]

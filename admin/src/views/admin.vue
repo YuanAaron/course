@@ -359,7 +359,7 @@
           <!--id的命名要和路由相关，后续我们会用到这个特点-->
           <li class="" id="welcome-sidebar">
             <!--<router-link to="">类似于<a href="">，用于链接跳转-->
-            <router-link to="/admin/welcome">
+            <router-link to="/welcome">
               <i class="menu-icon fa fa-tachometer"></i>
               <span class="menu-text"> 首页 </span>
             </router-link>
@@ -417,7 +417,7 @@
                 二级菜单要显示成激活状态，只需要添加active样式
               -->
               <li class="" id="business-chapter-sidebar">
-                <router-link to="/admin/business/chapter">
+                <router-link to="/business/chapter">
                   <i class="menu-icon fa fa-caret-right"></i>
                   大章管理
                 </router-link>

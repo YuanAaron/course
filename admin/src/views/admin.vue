@@ -487,9 +487,29 @@
 export default {
   name: 'login',
   mounted: function(){
+    //js中的this：代表当前执行方法的对象
+    //好习惯：使用this时，在方法开头声明本地变量_this代替this。会面会介绍直接用this的坑
+    let _this = this;
     $('body').removeClass('login-layout light-login');
     $('body').attr('class', 'no-skin');
     // console.log("admin");
+    //sidebar激活样式方法二
+    _this.activeSideBar(_this.$route.name.replace("/","-") + "-sidebar");
+  },
+  //watch和$route是是Vue内置的：用于监听路由的变化，一旦有变化就会调用一次handler
+  //注意：这里的监听，只对admin下面的子组件之间互相跳转有效，如果从login页面点击登录跳转到welcome页面，welcome并不会有激活样式（需要在mounted中调用一次）。
+  //sidebar激活样式方法二
+  watch: {
+    $route: {
+      handler: function (val,oldVal) { //新旧路由
+        console.log("--->页面跳转：",val,oldVal)
+        let _this = this;
+        _this.$nextTick(function () { //页面加载完成后执行
+          _this.activeSideBar(_this.$route.name.replace("/","-") + "-sidebar");
+        })
+      }
+    }
+
   },
   methods: {
 

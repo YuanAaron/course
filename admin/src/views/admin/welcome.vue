@@ -9,7 +9,8 @@ export default {
   name: 'welcome',
   mounted: function() {
     //子组件welcome调用父组件admin的方法，可以使用$parent
-    this.$parent.activeSideBar("welcome-sidebar");
+    //sidebar激活样式方法一
+    // this.$parent.activeSideBar("welcome-sidebar");
   },
   methods: {
 

@@ -10,16 +10,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Created by yw
  * 2021/03/23
  */
-@Configuration
-public class CorsConfig implements WebMvcConfigurer {
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedHeaders(CorsConfiguration.ALL)
-                .allowedMethods(CorsConfiguration.ALL)
-                .allowCredentials(true)
-                .maxAge(3600); //1h内不需要再校验（发OPTIONS请求）
-    }
-}
+//@Configuration
+//public class CorsConfig implements WebMvcConfigurer {
+//
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedOrigins("*")
+//                .allowedHeaders(CorsConfiguration.ALL)
+//                .allowedMethods(CorsConfiguration.ALL)
+//                .allowCredentials(true)
+//                .maxAge(3600); //1h内不需要再校验（发OPTIONS请求）
+//    }
+//}

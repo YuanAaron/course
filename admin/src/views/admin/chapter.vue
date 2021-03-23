@@ -975,3 +975,16 @@
         </tbody>
       </table>
 </template>
+
+<script>
+export default {
+  name: 'chapter',
+  mounted: function() {
+    //子组件welcome调用父组件admin的方法，可以使用$parent
+    this.$parent.activeSideBar("business-chapter-sidebar");
+  },
+  methods: {
+
+  }
+}
+</script>

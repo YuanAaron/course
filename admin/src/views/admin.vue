@@ -356,11 +356,13 @@
         </div><!-- /.sidebar-shortcuts -->
 
         <ul class="nav nav-list">
-          <li class="">
-            <a href="index.html">
+          <!--id的命名要和路由相关，后续我们会用到这个特点-->
+          <li class="" id="welcome-sidebar">
+            <!--<router-link to="">类似于<a href="">，用于链接跳转-->
+            <router-link to="/admin/welcome">
               <i class="menu-icon fa fa-tachometer"></i>
               <span class="menu-text"> 首页 </span>
-            </a>
+            </router-link>
 
             <b class="arrow"></b>
           </li>
@@ -400,7 +402,7 @@
             一级菜单要显示成激活状态，需要添加active样式；
             一级菜单要显示成打开状态，需要添加open样式
           -->
-          <li class="active open">
+          <li class="">
             <a href="#" class="dropdown-toggle">
               <i class="menu-icon fa fa-list"></i>
               <span class="menu-text"> 业务管理 </span>
@@ -414,11 +416,11 @@
               <!--
                 二级菜单要显示成激活状态，只需要添加active样式
               -->
-              <li class="active">
-                <a href="tables.html">
+              <li class="" id="business-chapter-sidebar">
+                <router-link to="/admin/business/chapter">
                   <i class="menu-icon fa fa-caret-right"></i>
                   大章管理
-                </a>
+                </router-link>
 
                 <b class="arrow"></b>
               </li>
@@ -490,6 +492,27 @@ export default {
     // console.log("admin");
   },
   methods: {
+
+    /**
+     * 菜单激活样式
+     * @param id 当前点击的菜单id
+     */
+    activeSideBar: function(id) {
+      //二级菜单
+      //兄弟菜单去掉active样式，自身增加active样式
+      //siblings()是一个jquery方法，表示获取所有兄弟节点（同一层级的节点）
+      $("#" + id).siblings().removeClass("active");
+      $("#" + id).siblings().find("li").removeClass("active");
+      $("#" + id).addClass("active");
+
+      //一级菜单
+      //如果有父菜单，父菜单的兄弟菜单去掉open active,父菜单增加open active
+      let parentLi = $("#" + id).parents("li");
+      if (parentLi) {
+        parentLi.siblings().removeClass("open active");
+        parentLi.addClass("open active");
+      }
+    }
   }
 }
 </script>

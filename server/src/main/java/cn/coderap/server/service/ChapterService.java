@@ -4,6 +4,7 @@ import cn.coderap.server.dto.ChapterDto;
 import cn.coderap.server.mapper.ChapterMapper;
 import cn.coderap.server.pojo.Chapter;
 import cn.coderap.server.pojo.ChapterExample;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,12 @@ public class ChapterService {
     private ChapterMapper chapterMapper;
 
     public List<ChapterDto> list() {
+        //pageNum从1开始
+        //pagehelper插件分页规则：调用startPage方法后，执行的第一个select语句会进行分页
+        //实质：
+        //sql1: select count(0) from chapter，查询总条数
+        //sql2: select * from chapter limit 0,1，为select语句增加limit m,n，其中行号m是从0开始的，n表示查几条
+        PageHelper.startPage(1, 1);
         ChapterExample chapterExample = new ChapterExample();
         ChapterExample.Criteria criteria = chapterExample.createCriteria();
         List<Chapter> chapterList = chapterMapper.selectByExample(chapterExample);

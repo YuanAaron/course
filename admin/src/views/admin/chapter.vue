@@ -980,12 +980,20 @@
 export default {
   name: 'chapter',
   mounted: function() {
+    let _this = this;
     //子组件welcome调用父组件admin的方法，可以使用$parent
     //sidebar激活样式方法一
     // this.$parent.activeSideBar("business-chapter-sidebar");
+    _this.list();
+
   },
   methods: {
-
+    list() {
+      let _this = this;
+      _this.$ajax.get('http://127.0.0.1:9002/business/admin/chapter/list').then(res => {
+        console.log("查询大章列表结果为：",res);
+      })
+    }
   }
 }
 </script>

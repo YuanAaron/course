@@ -14,13 +14,15 @@ import java.util.List;
  * 2021/3/11
  */
 @RestController
-@RequestMapping("/admin")
+// /admin用于后台的接口，/web用于网站的接口。
+// 接口设计中，用不同的请求前缀代表不同的入口，做接口隔离，方便做鉴权、统计、监控等
+@RequestMapping("/admin/chapter")
 public class ChapterController {
 
     @Resource
     private ChapterService chapterService;
 
-    @RequestMapping("/chapter")
+    @RequestMapping("/list")
     public List<ChapterDto> chapter() {
         return chapterService.list();
     }

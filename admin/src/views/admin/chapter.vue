@@ -95,7 +95,7 @@ export default {
   methods: {
     list() {
       let _this = this;
-      _this.$ajax.get('http://127.0.0.1:9002/business/admin/chapter/list').then(res => {
+      _this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/list').then(res => {
         // console.log("查询大章列表结果为：",res);
         _this.chapters = res.data;
       })

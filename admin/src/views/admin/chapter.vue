@@ -93,11 +93,15 @@ export default {
 
   },
   methods: {
+    //接口请求参数传递，尽量使用post：使用get请求在url里拼接参数的话，会使url变得很长，有些浏览器或服务器会对url长度做限制，导致请求失败
     list() {
       let _this = this;
-      _this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/list').then(res => {
+      _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list',{
+        page: 1,
+        size: 1
+      }).then(res => {
         // console.log("查询大章列表结果为：",res);
-        _this.chapters = res.data;
+        _this.chapters = res.data.list;
       })
     }
   }

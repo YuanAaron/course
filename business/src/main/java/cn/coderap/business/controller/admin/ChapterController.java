@@ -1,5 +1,6 @@
 package cn.coderap.business.controller.admin;
 
+import cn.coderap.server.dto.ChapterDto;
 import cn.coderap.server.pojo.Chapter;
 import cn.coderap.server.service.ChapterService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class ChapterController {
     private ChapterService chapterService;
 
     @RequestMapping("/chapter")
-    public List<Chapter> chapter() {
+    public List<ChapterDto> chapter() {
         return chapterService.list();
     }
 }

@@ -1,15 +1,12 @@
 package cn.coderap.server.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * 跨域
+ * 跨域：前后端分离必然有跨域问题，其中同IP不同端口间的访问也属于跨域。
  * Created by yw
  * 2021/03/23
  */

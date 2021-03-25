@@ -115,13 +115,13 @@
                 <!--<label for="id">使用场景：点击复选框checkbox时选中，使用label for后，点击label的文字也能选中复选框-->
                 <label for="inputName" class="col-sm-2 control-label">名称</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="inputName" placeholder="名称">
+                  <input type="text" v-model="chapter.name" class="form-control" id="inputName" placeholder="名称">
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputName1" class="col-sm-2 control-label">课程ID</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="inputName1" placeholder="课程ID">
+                  <input type="text" v-model="chapter.courseId" class="form-control" id="inputName1" placeholder="课程ID">
                 </div>
               </div>
             </form>
@@ -131,7 +131,7 @@
             模态框的弹出和关闭：可以使用js代码，也可以使用button属性（data-dismiss="css选择器"关闭，data-toggle="css选择器"打开）
             -->
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-primary" v-on:click="save()">保存</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -148,7 +148,8 @@ export default {
   name: 'chapter',
   data: function () {
     return {
-      chapters: []
+      chapters: [],
+      chapter: {}
     }
   },
   mounted: function() {
@@ -161,6 +162,12 @@ export default {
 
   },
   methods: {
+    save() {
+      let _this = this;
+      _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save',_this.chapter).then(res => {
+        console.log("保存大章列表结果为：",res);
+      })
+    },
     add() {
       //let _this=this;
       // $(".modal").modal({backdrop: "static"}); //禁止点空白的地方关闭模态框（某些场景会用到这个功能）

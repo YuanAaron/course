@@ -1,5 +1,6 @@
 package cn.coderap.business.controller.admin;
 
+import cn.coderap.server.dto.ChapterDto;
 import cn.coderap.server.dto.PageDto;
 import cn.coderap.server.service.ChapterService;
 import org.slf4j.Logger;
@@ -35,9 +36,16 @@ public class ChapterController {
      * @return
      */
     @RequestMapping("/list")
-    public PageDto chapter(@RequestBody PageDto pageDto) {
+    public PageDto list(@RequestBody PageDto pageDto) {
         LOGGER.info("pageDto: {}",pageDto); //日志输出使用占位符{}
         chapterService.list(pageDto);
         return pageDto;
+    }
+
+    @RequestMapping("/save")
+    public ChapterDto save(@RequestBody ChapterDto chapterDto) {
+        LOGGER.info("chapterDto: {}",chapterDto);
+        chapterService.save(chapterDto);
+        return chapterDto;
     }
 }

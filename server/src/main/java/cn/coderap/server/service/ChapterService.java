@@ -5,6 +5,7 @@ import cn.coderap.server.dto.PageDto;
 import cn.coderap.server.mapper.ChapterMapper;
 import cn.coderap.server.pojo.Chapter;
 import cn.coderap.server.pojo.ChapterExample;
+import cn.coderap.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -47,5 +48,12 @@ public class ChapterService {
         }
 
         pageDto.setList(chapterDtoList);
+    }
+
+    public void save(ChapterDto chapterDto) {
+        chapterDto.setId(UuidUtil.getShortUuid());
+        Chapter chapter = new Chapter();
+        BeanUtils.copyProperties(chapterDto,chapter);
+        chapterMapper.insert(chapter);
     }
 }

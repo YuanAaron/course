@@ -12,7 +12,9 @@
     在Vue中，我们不用获取dom节点，元素绑定ref之后(取别名)，直接通过this.$refs.refName即可调用，这样可以减少获取dom节点的消耗。
     关于Vue中的ref和refs参考：https://blog.csdn.net/qq_38128179/article/details/88876060
     -->
-    <pagination ref="pagination" v-bind:list="list"></pagination>
+
+    <!--默认显示多少个按钮可以修改-->
+    <pagination ref="pagination" v-bind:list="list" v-bind:itemCount="3"></pagination>
     <!--
     删除多余的row和col-xs-12:
     两者都是bootstrap栅格系统的内置样式，用于响应式页面的布局
@@ -92,7 +94,7 @@
 </template>
 
 <script>
-import Pagination from "../../components/pagination";
+import Pagination from "@/components/pagination"; //这里直接用@也可以
 
 export default {
   components: {Pagination},
@@ -107,6 +109,7 @@ export default {
     //子组件welcome调用父组件admin的方法，可以使用$parent
     //sidebar激活样式方法一
     // this.$parent.activeSideBar("business-chapter-sidebar");
+    _this.$refs.pagination.size = 5;
     _this.list(1);
 
   },

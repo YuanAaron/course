@@ -1,9 +1,8 @@
 <template>
   <div class="pagination" role="group" aria-label="分页">
     <span class="m--padding-10">
-        共【{{total}}】条，每页
+        共 {{total}} 条，每页
         <select v-model="size">
-            <option value="1">1</option>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="20">20</option>
@@ -23,6 +22,7 @@
             v-on:click="selectPage(page - 1)">
       上一页
     </button>
+    <!--显示哪些按钮取决于pages-->
     <button v-for="p in pages" v-bind:id="'page-' + p"
             type="button" class="btn btn-default btn-white btn-round"
             v-bind:class="{'btn-primary active':page == p}"
@@ -56,13 +56,14 @@ export default {
       type: Function,
       default: null
     },
+    //使用组件时如果这个值不传，默认为5，这点可从render方法中找到。注意：默认值的修改最好不要修改render方法，可在组件使用时传入
     itemCount: Number // 显示的页码数，比如总共有100页，只显示10页，其它用省略号表示
   },
   data: function () {
     return {
       to: 0, //直接跳转的页码
       total: 0, // 总行数
-      size: 10, // 每页条数
+      size: 10, // 每页条数 注意：默认值的修改最好不要改这里，可在组件使用时在mounted方法中添加
       page: 0, // 当前页码
       pageTotal: 0, // 总页数
       pages: [], // 显示的页码数组

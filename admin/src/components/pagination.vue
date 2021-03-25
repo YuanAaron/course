@@ -1,5 +1,18 @@
 <template>
   <div class="pagination" role="group" aria-label="分页">
+    <span class="m--padding-10">
+        共【{{total}}】条，每页
+        <select v-model="size">
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+        条
+    </span>
+    &nbsp;
     <button type="button" class="btn btn-default btn-white btn-round"
             v-bind:disabled="page === 1"
             v-on:click="selectPage(1)">
@@ -27,17 +40,10 @@
       {{pageTotal||1}}
     </button>
     &nbsp;
-    <span class="m--padding-10">
-        每页
-        <select v-model="size">
-            <option value="1">1</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
-        条，共【{{total}}】条
+    <span>
+      前往
+      <input type="text" v-model="to" v-on:keyup.enter="selectPage(to)" class="input_inner">
+      页
     </span>
   </div>
 </template>
@@ -54,6 +60,7 @@ export default {
   },
   data: function () {
     return {
+      to: 0, //直接跳转的页码
       total: 0, // 总行数
       size: 10, // 每页条数
       page: 0, // 当前页码
@@ -69,9 +76,12 @@ export default {
      */
     render(page, total) {
       let _this = this;
+      _this.to = page;
       _this.page = page;
       _this.total = total;
       _this.pageTotal = Math.ceil(total / _this.size);
+      //js逻辑或||：expr1 || expr2，若expr1可转换为true，则返回expr1；否则，返回expr2。
+      // 0 || 5 、 undefined || 5、 null || 5的结果都是5
       _this.pages = _this.getPageItems(_this.pageTotal, page, _this.itemCount || 5);
     },
 
@@ -83,12 +93,15 @@ export default {
       let _this = this;
       if (page < 1) {
         page = 1;
+        _this.to = page;
       }
       if (page > _this.pageTotal) {
         page = _this.pageTotal;
+        _this.to = page;
       }
       if (this.page !== page) {
         _this.page = page;
+        _this.to = page;
         if (_this.list) {
           _this.list(page);
         }
@@ -142,6 +155,12 @@ export default {
   border-color: #27689d !important;
   color: white !important;
   font-weight: 600;
+}
+
+.input_inner {
+  hight: 6px;
+  width: 50px;
+  text-align: center
 }
 
 /*.pagination select {*/

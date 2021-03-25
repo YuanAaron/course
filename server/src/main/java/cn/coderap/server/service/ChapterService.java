@@ -5,6 +5,7 @@ import cn.coderap.server.dto.PageDto;
 import cn.coderap.server.mapper.ChapterMapper;
 import cn.coderap.server.pojo.Chapter;
 import cn.coderap.server.pojo.ChapterExample;
+import cn.coderap.server.util.CopyUtil;
 import cn.coderap.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -38,22 +39,13 @@ public class ChapterService {
 
         PageInfo<Chapter> pageInfo = new PageInfo<>(chapterList);
         pageDto.setTotal(pageInfo.getTotal());
-
-        List<ChapterDto> chapterDtoList = new ArrayList<>();
-        for (int i = 0; i < chapterList.size(); i++) {
-            ChapterDto chapterDto = new ChapterDto();
-            Chapter chapter = chapterList.get(i);
-            BeanUtils.copyProperties(chapter, chapterDto);
-            chapterDtoList.add(chapterDto);
-        }
-
+        List<ChapterDto> chapterDtoList = CopyUtil.copyList(chapterList, ChapterDto.class);
         pageDto.setList(chapterDtoList);
     }
 
     public void save(ChapterDto chapterDto) {
         chapterDto.setId(UuidUtil.getShortUuid());
-        Chapter chapter = new Chapter();
-        BeanUtils.copyProperties(chapterDto,chapter);
+        Chapter chapter = CopyUtil.copy(chapterDto, Chapter.class);
         chapterMapper.insert(chapter);
     }
 }

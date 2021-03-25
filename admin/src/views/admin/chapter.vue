@@ -166,6 +166,15 @@ export default {
       let _this = this;
       _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save',_this.chapter).then(res => {
         console.log("保存大章列表结果为：",res);
+        //列表查询业务上一般都是成功的（查不到数据也是成功的），因此不需要判断success;
+        //保存有可能失败，所以需要判断success
+        let resd = res.data;
+        if (resd.success) {
+          //关闭模态框
+          $(".modal").modal("hide");
+          //刷新
+          _this.list(1);
+        }
       })
     },
     add() {
@@ -182,8 +191,9 @@ export default {
         size: _this.$refs.pagination.size
       }).then(res => {
         // console.log("查询大章列表结果为：",res);
-        _this.chapters = res.data.list;
-        _this.$refs.pagination.render(page,res.data.total);
+        let resd = res.data;
+        _this.chapters = resd.content.list;
+        _this.$refs.pagination.render(page,resd.content.total);
       })
     }
   }

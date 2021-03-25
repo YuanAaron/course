@@ -1,6 +1,12 @@
 <template>
   <div>
     <p>
+      <button v-on:click="add()" class="btn btn-white btn-default btn-round">
+        <!--fa(fontawesome)：图标样式-->
+        <i class="ace-icon fa fa-edit red2"></i>
+        新增
+      </button>
+      &nbsp;
       <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
         <!--fa(fontawesome)：图标样式-->
         <i class="ace-icon fa fa-refresh red2"></i>
@@ -90,6 +96,47 @@
       </tr>
       </tbody>
     </table>
+
+    <!--
+    模态框：相关的代码可以放在html代码的顶部或底部
+    分为三部分：model-header：标题；model-body: 主体内容（放置表单的位置）；model-footer：底部按钮
+    -->
+    <div class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">表单</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <!--<label for="id">使用场景：点击复选框checkbox时选中，使用label for后，点击label的文字也能选中复选框-->
+                <label for="inputName" class="col-sm-2 control-label">名称</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputName" placeholder="名称">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputName1" class="col-sm-2 control-label">课程ID</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputName1" placeholder="课程ID">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <!--
+            模态框的弹出和关闭：可以使用js代码，也可以使用button属性（data-dismiss="css选择器"关闭，data-toggle="css选择器"打开）
+            -->
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary">保存</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
   </div>
 </template>
 
@@ -114,6 +161,12 @@ export default {
 
   },
   methods: {
+    add() {
+      //let _this=this;
+      // $(".modal").modal({backdrop: "static"}); //禁止点空白的地方关闭模态框（某些场景会用到这个功能）
+      $(".modal").modal("show"); //$(".modal") css选择器，因为模块框代码中有class="modal"的样式；modal()是内置的方法，用于弹出或关闭模态框
+
+    },
     //接口请求参数传递，尽量使用post：使用get请求在url里拼接参数的话，会使url变得很长，有些浏览器或服务器会对url长度做限制，导致请求失败
     list(page) {
       let _this = this;

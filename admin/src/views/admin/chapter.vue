@@ -101,7 +101,9 @@
     模态框：相关的代码可以放在html代码的顶部或底部
     分为三部分：model-header：标题；model-body: 主体内容（放置表单的位置）；model-footer：底部按钮
     -->
-    <div class="modal fade" tabindex="-1" role="dialog">
+    <!--小优化：目前的modal弹出、关闭都是使用class类型的css选择器（id、class、标签三种方式）选择页面元素，
+    如果页面复杂（一个页面多个modal）,这时候用class选择，可能会出现重复，所以需要给每个modal增加id属性-->
+    <div id="form-modal" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -171,7 +173,7 @@ export default {
         let resd = res.data;
         if (resd.success) {
           //关闭模态框
-          $(".modal").modal("hide");
+          $("#form-modal").modal("hide");
           //刷新
           _this.list(1);
         }
@@ -179,8 +181,8 @@ export default {
     },
     add() {
       //let _this=this;
-      // $(".modal").modal({backdrop: "static"}); //禁止点空白的地方关闭模态框（某些场景会用到这个功能）
-      $(".modal").modal("show"); //$(".modal") css选择器，因为模块框代码中有class="modal"的样式；modal()是内置的方法，用于弹出或关闭模态框
+      // $("#form-modal").modal({backdrop: "static"}); //禁止点空白的地方关闭模态框（某些场景会用到这个功能）
+      $("#form-modal").modal("show"); //$(".modal") css选择器，因为模块框代码中有class="modal"的样式；modal()是内置的方法，用于弹出或关闭模态框
 
     },
     //接口请求参数传递，尽量使用post：使用get请求在url里拼接参数的话，会使url变得很长，有些浏览器或服务器会对url长度做限制，导致请求失败

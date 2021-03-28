@@ -176,7 +176,9 @@ export default {
         confirmButtonText: '确认!'
       }).then((result) => {
         if (result.isConfirmed) {
+          loading.show();
           _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then(res => {
+            loading.hide();
             console.log("删除大章列表结果为：",res);
             let resd = res.data;
             if (resd.success) {
@@ -200,7 +202,9 @@ export default {
     },
     save() {
       let _this = this;
+      loading.show();
       _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save',_this.chapter).then(res => {
+        loading.hide();
         console.log("保存大章列表结果为：",res);
         //列表查询业务上一般都是成功的（查不到数据也是成功的），因此不需要判断success;
         //保存有可能失败，所以需要判断success
@@ -226,10 +230,12 @@ export default {
     //接口请求参数传递，尽量使用post：使用get请求在url里拼接参数的话，会使url变得很长，有些浏览器或服务器会对url长度做限制，导致请求失败
     list(page) {
       let _this = this;
+      loading.show();
       _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list',{
         page: page,
         size: _this.$refs.pagination.size
       }).then(res => {
+        loading.hide();
         // console.log("查询大章列表结果为：",res);
         let resd = res.data;
         _this.chapters = resd.content.list;

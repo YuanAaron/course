@@ -5,7 +5,7 @@
 */
 
 //参考自：http://malsup.com/jquery/block/
-loading = {
+Loading = {
   show: function() {
     $.blockUI({
       message: '<img src="/static/image/loading.gif"/>',

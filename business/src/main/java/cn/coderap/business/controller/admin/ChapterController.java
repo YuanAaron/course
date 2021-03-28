@@ -4,12 +4,10 @@ import cn.coderap.server.dto.ChapterDto;
 import cn.coderap.server.dto.PageDto;
 import cn.coderap.server.dto.ResponseDto;
 import cn.coderap.server.service.ChapterService;
+import org.apache.ibatis.annotations.Delete;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -36,7 +34,7 @@ public class ChapterController {
      * @param pageDto
      * @return
      */
-    @RequestMapping("/list")
+    @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto) {
         LOGGER.info("pageDto: {}",pageDto); //日志输出使用占位符{}
         ResponseDto responseDto = new ResponseDto();
@@ -51,12 +49,20 @@ public class ChapterController {
      * @param chapterDto
      * @return
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
         LOGGER.info("chapterDto: {}",chapterDto);
         ResponseDto responseDto = new ResponseDto();
         chapterService.save(chapterDto);
         responseDto.setContent(chapterDto);
+        return responseDto;
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseDto delete(@PathVariable String id) {
+        LOGGER.info("id: {}",id);
+        ResponseDto responseDto = new ResponseDto();
+        chapterService.delete(id);
         return responseDto;
     }
 }

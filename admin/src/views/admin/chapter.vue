@@ -46,7 +46,8 @@
               <i class="ace-icon fa fa-pencil bigger-120"></i>
             </button>
 
-            <button class="btn btn-xs btn-danger">
+            <!--delete是js关键字，在Vue中也不能使用-->
+            <button v-on:click="del(chapter.id)" class="btn btn-xs btn-danger">
               <i class="ace-icon fa fa-trash-o bigger-120"></i>
             </button>
           </div>
@@ -162,6 +163,16 @@ export default {
 
   },
   methods: {
+    del(id) {
+      let _this = this;
+      _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then(res => {
+        console.log("删除大章列表结果为：",res);
+        let resd = res.data;
+        if (resd.success) {
+          _this.list(1);
+        }
+      })
+    },
     edit(chapter) {
       let _this=this;
       //问题：编辑并点击取消后，仍然显示编辑后的数据（没有进入数据库，刷新后正常显示）

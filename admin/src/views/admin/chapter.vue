@@ -165,30 +165,19 @@ export default {
   methods: {
     del(id) {
       let _this = this;
-      //来自：https://sweetalert2.github.io/#examples
-      Swal.fire({
-        title: '确认删除？',
-        text: "删除后不能恢复，确认删除？",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '确认!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Loading.show();
-          _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then(res => {
-            Loading.hide();
-            console.log("删除大章列表结果为：",res);
-            let resd = res.data;
-            if (resd.success) {
-              _this.list(1);
-              //放list前后都可以
-              Toast.success("删除成功!")
-            }
-          })
-        }
-      })
+      Confirm.show("删除后不能恢复，确认删除？",function () {
+        Loading.show();
+        _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then(res => {
+          Loading.hide();
+          console.log("删除大章列表结果为：",res);
+          let resd = res.data;
+          if (resd.success) {
+            _this.list(1);
+            //放list前后都可以
+            Toast.success("删除成功!")
+          }
+        })
+      });
     },
     edit(chapter) {
       let _this=this;

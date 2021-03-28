@@ -42,23 +42,20 @@
         <td>{{ chapter.name }}</td>
         <td>
           <div class="hidden-sm hidden-xs btn-group">
-            <button class="btn btn-xs btn-success">
-              <i class="ace-icon fa fa-check bigger-120"></i>
-            </button>
-
-            <button class="btn btn-xs btn-info">
+            <button v-on:click="edit(chapter)" class="btn btn-xs btn-info">
               <i class="ace-icon fa fa-pencil bigger-120"></i>
             </button>
 
             <button class="btn btn-xs btn-danger">
               <i class="ace-icon fa fa-trash-o bigger-120"></i>
             </button>
-
-            <button class="btn btn-xs btn-warning">
-              <i class="ace-icon fa fa-flag bigger-120"></i>
-            </button>
           </div>
 
+          <!--
+            hidden-md: 中等屏幕（>=992px）隐藏，其他可见；与之相反的是visible-md
+            hidden-lg: 大屏幕(>=1200px)隐藏，其他可见;与之相反的是visible-lg
+            具体可参考：https://v3.bootcss.com/css/#responsive-utilities-classes
+          -->
           <div class="hidden-md hidden-lg">
             <div class="inline pos-rel">
               <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
@@ -151,6 +148,7 @@ export default {
   data: function () {
     return {
       chapters: [],
+      //新增、编辑模态框中的内容
       chapter: {}
     }
   },
@@ -164,6 +162,16 @@ export default {
 
   },
   methods: {
+    edit(chapter) {
+      let _this=this;
+      //问题：编辑并点击取消后，仍然显示编辑后的数据（没有进入数据库，刷新后正常显示）
+      //原因：编辑的是this.chapter，但是它是从this.chapters中取出来的，这样修改表单（this.chapter）时会
+      // 影响表格（this.chapters）行数据，这就是Vue的双向绑定的问题
+      //解决方案：副本，即把chapter复制一份到空对象，然后再将复制得到的对象赋值给_this.chapter，之后如果修改_this.chapter
+      //就不会影响chapter，也即不会影响_this.chapters。
+      _this.chapter=$.extend({},chapter);
+      $("#form-modal").modal("show");
+    },
     save() {
       let _this = this;
       _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save',_this.chapter).then(res => {
@@ -180,7 +188,10 @@ export default {
       })
     },
     add() {
-      //let _this=this;
+      let _this=this;
+      //问题：点击编辑按钮后（之后不管取消还是修改），会改变_this.chapter，这时点击新增按钮会有内容（同样是Vue的双向绑定，一般点击新增按钮后应该为空）
+      //解决方案：添加下面一句即可
+      _this.chapter={};
       // $("#form-modal").modal({backdrop: "static"}); //禁止点空白的地方关闭模态框（某些场景会用到这个功能）
       $("#form-modal").modal("show"); //$(".modal") css选择器，因为模块框代码中有class="modal"的样式；modal()是内置的方法，用于弹出或关闭模态框
 

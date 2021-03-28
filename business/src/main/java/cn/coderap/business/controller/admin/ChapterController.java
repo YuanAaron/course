@@ -45,6 +45,12 @@ public class ChapterController {
         return responseDto;
     }
 
+    /**
+     * 增加和修改功能弹出来的模态框是同一个，这两个功能调用的vue、controller、service中的save方法都是同一个，
+     * 只是到service层再根据id是否有值来判断是新增还是修改（id没有值，即为新增；否则，为修改）。
+     * @param chapterDto
+     * @return
+     */
     @RequestMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
         LOGGER.info("chapterDto: {}",chapterDto);

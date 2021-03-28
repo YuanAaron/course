@@ -182,11 +182,7 @@ export default {
             if (resd.success) {
               _this.list(1);
               //放list前后都可以
-              Swal.fire(
-                  '删除成功！',
-                  '删除成功！',
-                  'success'
-              )
+              toast.success("删除成功!")
             }
           })
         }
@@ -214,6 +210,7 @@ export default {
           $("#form-modal").modal("hide");
           //刷新
           _this.list(1);
+          toast.success("保存成功！")
         }
       })
     },

@@ -4,6 +4,7 @@ import cn.coderap.server.dto.ChapterDto;
 import cn.coderap.server.dto.PageDto;
 import cn.coderap.server.dto.ResponseDto;
 import cn.coderap.server.service.ChapterService;
+import cn.coderap.server.util.ValidatorUtil;
 import org.apache.ibatis.annotations.Delete;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,12 @@ public class ChapterController {
     @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
         LOGGER.info("chapterDto: {}",chapterDto);
+
+        //校验参数(校验失败，抛出运行时异常，代码不再往下走)
+        ValidatorUtil.require(chapterDto.getName(), "名称");
+        ValidatorUtil.require(chapterDto.getCourseId(), "课程ID");
+        ValidatorUtil.length(chapterDto.getCourseId(), "课程ID", 1, 8);
+
         ResponseDto responseDto = new ResponseDto();
         chapterService.save(chapterDto);
         responseDto.setContent(chapterDto);

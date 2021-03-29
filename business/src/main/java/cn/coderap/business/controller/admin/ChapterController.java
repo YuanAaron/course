@@ -56,17 +56,9 @@ public class ChapterController {
         LOGGER.info("chapterDto: {}",chapterDto);
 
         //校验参数(校验失败，抛出运行时异常，代码不再往下走)
-        try {
-            ValidatorUtil.require(chapterDto.getName(), "名称");
-            ValidatorUtil.require(chapterDto.getCourseId(), "课程ID");
-            ValidatorUtil.length(chapterDto.getCourseId(), "课程ID", 1, 8);
-        } catch (ValidatorException e) {
-            LOGGER.warn(e.getMessage());
-            ResponseDto responseDto = new ResponseDto();
-            responseDto.setSuccess(false);
-            responseDto.setMessage(e.getMessage());
-            return responseDto;
-        }
+        ValidatorUtil.require(chapterDto.getName(), "名称");
+        ValidatorUtil.require(chapterDto.getCourseId(), "课程ID");
+        ValidatorUtil.length(chapterDto.getCourseId(), "课程ID", 1, 8);
 
         ResponseDto responseDto = new ResponseDto();
         chapterService.save(chapterDto);

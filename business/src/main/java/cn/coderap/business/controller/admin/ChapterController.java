@@ -3,6 +3,7 @@ package cn.coderap.business.controller.admin;
 import cn.coderap.server.dto.ChapterDto;
 import cn.coderap.server.dto.PageDto;
 import cn.coderap.server.dto.ResponseDto;
+import cn.coderap.server.exception.ValidatorException;
 import cn.coderap.server.service.ChapterService;
 import cn.coderap.server.util.ValidatorUtil;
 import org.apache.ibatis.annotations.Delete;
@@ -55,9 +56,17 @@ public class ChapterController {
         LOGGER.info("chapterDto: {}",chapterDto);
 
         //校验参数(校验失败，抛出运行时异常，代码不再往下走)
-        ValidatorUtil.require(chapterDto.getName(), "名称");
-        ValidatorUtil.require(chapterDto.getCourseId(), "课程ID");
-        ValidatorUtil.length(chapterDto.getCourseId(), "课程ID", 1, 8);
+        try {
+            ValidatorUtil.require(chapterDto.getName(), "名称");
+            ValidatorUtil.require(chapterDto.getCourseId(), "课程ID");
+            ValidatorUtil.length(chapterDto.getCourseId(), "课程ID", 1, 8);
+        } catch (ValidatorException e) {
+            LOGGER.warn(e.getMessage());
+            ResponseDto responseDto = new ResponseDto();
+            responseDto.setSuccess(false);
+            responseDto.setMessage(e.getMessage());
+            return responseDto;
+        }
 
         ResponseDto responseDto = new ResponseDto();
         chapterService.save(chapterDto);

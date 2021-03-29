@@ -212,6 +212,8 @@ export default {
           //刷新
           _this.list(1);
           Toast.success("保存成功！")
+        } else {
+          Toast.warning(resd.message);
         }
       })
     },

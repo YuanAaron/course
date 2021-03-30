@@ -14,17 +14,20 @@ import java.util.Map;
  */
 public class ServerBuilder {
 
+    static String MODULE = "business";
     static String toServicePath = "server\\src\\main\\java\\cn\\coderap\\server\\service\\"; //要生成的文件的路径
-    static String toControllerPath = "business\\src\\main\\java\\cn\\coderap\\business\\controller\\admin\\";
+    static String toControllerPath = MODULE + "\\src\\main\\java\\cn\\coderap\\" + MODULE + "\\controller\\admin\\";
 
     public static void main(String[] args) throws IOException, TemplateException {
         String Domain = "Section";
         String domain = "section";
         String tableNameCn = "小节";
+        String module = MODULE;
         Map<String,Object> map = new HashMap<>();
         map.put("Domain", Domain);
         map.put("domain", domain);
         map.put("tableNameCn", tableNameCn);
+        map.put("module", module);
 
         //生成service
         FreemarkerUtil.initConfig("service.ftl");

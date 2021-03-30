@@ -4,6 +4,8 @@ import cn.coderap.builder.util.FreemarkerUtil;
 import freemarker.template.TemplateException;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by yw
@@ -11,10 +13,16 @@ import java.io.IOException;
  */
 public class ServerBuilder {
 
-    static String toPath = "builder\\src\\main\\java\\cn\\coderap\\builder\\test\\"; //要生成的文件的路径
+    static String toServicePath = "server\\src\\main\\java\\cn\\coderap\\server\\service\\"; //要生成的文件的路径
 
     public static void main(String[] args) throws IOException, TemplateException {
-        FreemarkerUtil.initConfig("test.ftl");
-        FreemarkerUtil.builder(toPath + "Test.java");
+        String Domain = "Section";
+        String domain = "section";
+        Map<String,Object> map = new HashMap<>();
+        map.put("Domain", Domain);
+        map.put("domain", domain);
+
+        FreemarkerUtil.initConfig("service.ftl");
+        FreemarkerUtil.builder(toServicePath + Domain + "Service.java", map);
     }
 }

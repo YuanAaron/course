@@ -84,6 +84,38 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!--mybatis generator自动生成引入步骤：
+			 1、添加如下插件，此外还依赖mybatis-spring-boot-starter和mysql-connector-java
+			 2、添加并修改src/main/resources/generator/generatorConfig.xml文件
+			 3、添加Maven命令：点击Edit Configurations，然后点击加号，选择maven，在Working direction中添加generatorConfig.xml所在的模块的路径，
+			 比如这里的F:/IdeaProjects/course/server，Command line添加mybatis-generator:generate -e，其中将Name改为mybatis-generator
+			 4、点击mybatis-generator执行Maven命令即可
+			 -->
+
+			<!-- mybatis generator 自动生成代码插件 -->
+			<!--
+            1、这里之所以使用1.3.7，是为了解决mapper.xml重复生成代码的问题，因为generatorConfig.xml中使用的
+            org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin是从1.3.7才开始有的。
+            2、1.3.7以前的版本的解决方案是通过在Java类里删除原先的xml文件，再执行生成代码
+            -->
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.7</version>
+				<configuration>
+					<configurationFile>src/main/resources/generator/generatorConfig.xml</configurationFile>
+					<overwrite>true</overwrite>
+					<verbose>true</verbose>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.37</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
 

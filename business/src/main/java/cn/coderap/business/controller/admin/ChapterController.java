@@ -3,10 +3,8 @@ package cn.coderap.business.controller.admin;
 import cn.coderap.server.dto.ChapterDto;
 import cn.coderap.server.dto.PageDto;
 import cn.coderap.server.dto.ResponseDto;
-import cn.coderap.server.exception.ValidatorException;
 import cn.coderap.server.service.ChapterService;
 import cn.coderap.server.util.ValidatorUtil;
-import org.apache.ibatis.annotations.Delete;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +28,8 @@ public class ChapterController {
     private ChapterService chapterService;
 
     /**
+     * 列表查询
+     *
      * @RequestBody存在的必要性：
      * 前端：post请求有多种参数传递方式，可以通过header里的Content-Type来标识，常见的有两种，一种是表单的方式（jquery默认），
      *      另一种是json(流)的方式（Vue和Angular默认）。
@@ -39,7 +39,7 @@ public class ChapterController {
      */
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto) {
-        LOGGER.info("pageDto: {}",pageDto); //日志输出使用占位符{}
+//        LOGGER.info("pageDto: {}",pageDto); //日志输出使用占位符{}
         ResponseDto responseDto = new ResponseDto();
         chapterService.list(pageDto);
         responseDto.setContent(pageDto);
@@ -47,6 +47,8 @@ public class ChapterController {
     }
 
     /**
+     * 保存，id没有值时新增，有值时更新
+     *
      * 增加和修改功能弹出来的模态框是同一个，这两个功能调用的vue、controller、service中的save方法都是同一个，
      * 只是到service层再根据id是否有值来判断是新增还是修改（id没有值，即为新增；否则，为修改）。
      * @param chapterDto
@@ -54,8 +56,6 @@ public class ChapterController {
      */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
-        LOGGER.info("chapterDto: {}",chapterDto);
-
         //校验参数(校验失败，抛出运行时异常，代码不再往下走)
         ValidatorUtil.require(chapterDto.getName(), "名称");
         ValidatorUtil.require(chapterDto.getCourseId(), "课程ID");
@@ -67,9 +67,13 @@ public class ChapterController {
         return responseDto;
     }
 
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id) {
-        LOGGER.info("id: {}",id);
         ResponseDto responseDto = new ResponseDto();
         chapterService.delete(id);
         return responseDto;

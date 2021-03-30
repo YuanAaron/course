@@ -27,6 +27,10 @@ public class ChapterService {
     @Resource
     private ChapterMapper chapterMapper;
 
+    /**
+     * 列表查询
+     * @param pageDto
+     */
     public void list(PageDto pageDto) {
         //pageNum从1开始
         //pagehelper插件分页规则：调用startPage方法后，执行的第一个select语句会进行分页
@@ -44,6 +48,10 @@ public class ChapterService {
         pageDto.setList(chapterDtoList);
     }
 
+    /**
+     * 保存，id没有值时新增，有值时更新
+     * @param chapterDto
+     */
     public void save(ChapterDto chapterDto) {
         Chapter chapter = CopyUtil.copy(chapterDto, Chapter.class);
         if (StringUtils.isEmpty(chapter.getId())) {
@@ -53,15 +61,27 @@ public class ChapterService {
         }
     }
 
+    /**
+     * 新增
+     * @param chapter
+     */
     private void insert(Chapter chapter) {
         chapter.setId(UuidUtil.getShortUuid());
         chapterMapper.insert(chapter);
     }
 
+    /**
+     * 更新
+     * @param chapter
+     */
     private void update(Chapter chapter) {
         chapterMapper.updateByPrimaryKey(chapter);
     }
 
+    /**
+     * 删除
+     * @param id
+     */
     public void delete(String id) {
         chapterMapper.deleteByPrimaryKey(id);
     }

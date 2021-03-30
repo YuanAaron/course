@@ -163,13 +163,13 @@ export default {
 
   },
   methods: {
+    //点击【删除】
     del(id) {
       let _this = this;
       Confirm.show("删除后不能恢复，确认删除？",function () {
         Loading.show();
         _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then(res => {
           Loading.hide();
-          console.log("删除大章列表结果为：",res);
           let resd = res.data;
           if (resd.success) {
             _this.list(1);
@@ -179,6 +179,7 @@ export default {
         })
       });
     },
+    //点击【编辑】
     edit(chapter) {
       let _this=this;
       //问题：编辑并点击取消后，仍然显示编辑后的数据（没有进入数据库，刷新后正常显示）
@@ -202,7 +203,6 @@ export default {
       Loading.show();
       _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save',_this.chapter).then(res => {
         Loading.hide();
-        console.log("保存大章列表结果为：",res);
         //列表查询业务上一般都是成功的（查不到数据也是成功的），因此不需要判断success;
         //保存有可能失败，所以需要判断success
         let resd = res.data;
@@ -217,6 +217,7 @@ export default {
         }
       })
     },
+    //点击【新增】
     add() {
       let _this=this;
       //问题：点击编辑按钮后（之后不管取消还是修改），会改变_this.chapter，这时点击新增按钮会有内容（同样是Vue的双向绑定，一般点击新增按钮后应该为空）
@@ -226,6 +227,7 @@ export default {
       $("#form-modal").modal("show"); //$(".modal") css选择器，因为模块框代码中有class="modal"的样式；modal()是内置的方法，用于弹出或关闭模态框
 
     },
+    //列表查询
     //接口请求参数传递，尽量使用post：使用get请求在url里拼接参数的话，会使url变得很长，有些浏览器或服务器会对url长度做限制，导致请求失败
     list(page) {
       let _this = this;
@@ -235,7 +237,6 @@ export default {
         size: _this.$refs.pagination.size
       }).then(res => {
         Loading.hide();
-        // console.log("查询大章列表结果为：",res);
         let resd = res.data;
         _this.chapters = resd.content.list;
         _this.$refs.pagination.render(page,resd.content.total);

@@ -168,7 +168,7 @@ export default {
       let _this = this;
       Confirm.show("删除后不能恢复，确认删除？",function () {
         Loading.show();
-        _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id).then(res => {
+        _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/chapter/delete/' + id).then(res => {
           Loading.hide();
           let resd = res.data;
           if (resd.success) {
@@ -201,7 +201,7 @@ export default {
       }
 
       Loading.show();
-      _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save',_this.chapter).then(res => {
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/save',_this.chapter).then(res => {
         Loading.hide();
         //列表查询业务上一般都是成功的（查不到数据也是成功的），因此不需要判断success;
         //保存有可能失败，所以需要判断success
@@ -232,7 +232,8 @@ export default {
     list(page) {
       let _this = this;
       Loading.show();
-      _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list',{
+      //生产环境和开发环境的IP地址是不一样的，所以不能把固定的IP地址写在代码里
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/list',{
         page: page,
         size: _this.$refs.pagination.size
       }).then(res => {

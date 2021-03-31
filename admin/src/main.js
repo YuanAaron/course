@@ -22,4 +22,7 @@ axios.interceptors.response.use(function (response) {
 new Vue({
   router,
   render: h => h(App),
-}).$mount('#app')
+}).$mount('#app');
+
+//当前是开发环境还是生产环境
+console.log("环境：",process.env.NODE_ENV); //代码中通过process.env.XXX使用环境变量

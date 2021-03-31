@@ -166,7 +166,7 @@ export default {
     //点击【删除】
     del(id) {
       let _this = this;
-      Confirm.show("删除后不能恢复，确认删除？",function () {
+      Confirm.show("删除大章后不能恢复，确认删除？",function () {
         Loading.show();
         _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/chapter/delete/' + id).then(res => {
           Loading.hide();

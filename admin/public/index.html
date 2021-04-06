@@ -75,7 +75,9 @@
 
     <!--界面等待框（基于blockUI实现）-->
     <!--百度搜索bootcdn.cn，然后搜索blockui即可找到下面的cdn链接-->
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery.blockUI/2.70.0-2014.11.23/jquery.blockUI.min.js"></script>
+    <!--<script src="https://cdn.bootcdn.net/ajax/libs/jquery.blockUI/2.70.0-2014.11.23/jquery.blockUI.min.js"></script>-->
+    <!--jquery.blockUI.min.js本地化：防止cdn不稳定-->
+    <script src="<%= BASE_URL %>static/js/jquery.blockUI.min.js"></script>
     <!--添加loading.js并引入-->
     <script src="<%= BASE_URL %>static/js/loading.js"></script>
 

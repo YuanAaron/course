@@ -25,8 +25,6 @@
         <th>时长</th>
         <th>收费</th>
         <th>顺序</th>
-        <th>创建时间</th>
-        <th>修改时间</th>
         <td>操作</td>
       </tr>
       </thead>
@@ -41,8 +39,6 @@
         <td>{{section.time}}</td>
         <td>{{section.charge}}</td>
         <td>{{section.sort}}</td>
-        <td>{{section.createdAt}}</td>
-        <td>{{section.updatedAt}}</td>
         <td>
           <div class="hidden-sm hidden-xs btn-group">
             <button v-on:click="edit(section)" class="btn btn-xs btn-info">
@@ -103,13 +99,6 @@
           <div class="modal-body">
             <form class="form-horizontal">
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">ID</label>
-                  <div class="col-sm-10">
-                    <input type="text" v-model="section.id" class="form-control"
-                           placeholder="ID">
-                  </div>
-                </div>
-                <div class="form-group">
                   <label class="col-sm-2 control-label">标题</label>
                   <div class="col-sm-10">
                     <input type="text" v-model="section.title" class="form-control"
@@ -156,20 +145,6 @@
                   <div class="col-sm-10">
                     <input type="text" v-model="section.sort" class="form-control"
                            placeholder="顺序">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">创建时间</label>
-                  <div class="col-sm-10">
-                    <input type="text" v-model="section.createdAt" class="form-control"
-                           placeholder="创建时间">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">修改时间</label>
-                  <div class="col-sm-10">
-                    <input type="text" v-model="section.updatedAt" class="form-control"
-                           placeholder="修改时间">
                   </div>
                 </div>
             </form>
@@ -229,8 +204,8 @@ export default {
       let _this = this;
 
       //校验
+      // 1!=1的设计类似于mybatis的动态sql设计（在拼动态where条件时，会在前面加1==1）
       if (1 != 1
-//            || !Validator.require(_this.section.id, "ID") //新增时前端id就应该为空，修改时前端id一定有值，没必要校验
             || !Validator.require(_this.section.title, "标题")
             || !Validator.length(_this.section.title, "标题", 1, 50)
             || !Validator.length(_this.section.video, "视频", 1, 200)

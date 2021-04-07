@@ -41,8 +41,7 @@ public class SectionController {
      */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody SectionDto sectionDto) {
-        //校验参数后面处理
-//        ValidatorUtil.require(sectionDto.getId(), "ID"); //新增时后端会给id赋值，修改时后端id一定有值，没必要校验
+        //校验
         ValidatorUtil.require(sectionDto.getTitle(), "标题");
         ValidatorUtil.length(sectionDto.getTitle(), "标题", 1, 50);
         ValidatorUtil.length(sectionDto.getVideo(), "视频", 1, 200);

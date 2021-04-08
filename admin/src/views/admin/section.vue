@@ -136,8 +136,9 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">收费</label>
                   <div class="col-sm-10">
-                    <input type="text" v-model="section.charge" class="form-control"
-                           placeholder="收费">
+                    <select type="text" v-model="section.charge" class="form-control" placeholder="收费">
+                      <option v-for="o in charge" v-bind:value="o.key">{{o.value}}</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">
@@ -169,7 +170,8 @@ export default {
   data: function () {
     return {
       sections: [],
-      section: {}
+      section: {},
+      charge: [{key: 'F',value: '免费'},{key: 'C',value: '收费'}]
     }
   },
   mounted: function() {

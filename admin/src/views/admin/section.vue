@@ -171,7 +171,7 @@ export default {
     return {
       sections: [],
       section: {},
-      CHARGE: [{key: 'F',value: '免费'},{key: 'C',value: '收费'}]
+      CHARGE: CHARGE
     }
   },
   mounted: function() {

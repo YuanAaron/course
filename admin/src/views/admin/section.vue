@@ -166,7 +166,8 @@ import Pagination from "@/components/pagination";
 
 export default {
   components: {Pagination},
-  name: 'section',
+  //[Vue warn]: Do not use built-in or reserved HTML elements as component id: section
+  name: 'business-section',
   data: function () {
     return {
       sections: [],

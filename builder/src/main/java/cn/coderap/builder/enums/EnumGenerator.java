@@ -1,7 +1,6 @@
 package cn.coderap.builder.enums;
 
-import cn.coderap.server.enums.SectionChargeEnum;
-import cn.coderap.server.enums.YesNoEnum;
+import cn.coderap.server.enums.*;
 
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -19,6 +18,9 @@ public class EnumGenerator {
         try {
             toJson(SectionChargeEnum.class, bufferObject, bufferArray);
             toJson(YesNoEnum.class, bufferObject, bufferArray);
+            toJson(CourseChargeEnum.class, bufferObject, bufferArray);
+            toJson(CourseLevelEnum.class, bufferObject, bufferArray);
+            toJson(CourseStatusEnum.class, bufferObject, bufferArray);
 
             StringBuffer buffer = bufferObject.append("\r\n").append(bufferArray);
             writeJs(buffer);

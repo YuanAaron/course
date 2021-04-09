@@ -97,6 +97,8 @@ public class Field {
         sb.append(", type='").append(type).append('\'');
         sb.append(", javaType='").append(javaType).append('\'');
         sb.append(", comment='").append(comment).append('\'');
+        sb.append(", nullAble='").append(nullAble).append('\'');
+        sb.append(", length='").append(length).append('\'');
         sb.append('}');
         return sb.toString();
     }

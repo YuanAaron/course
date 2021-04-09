@@ -413,6 +413,14 @@
             <b class="arrow"></b>
 
             <ul class="submenu">
+              <li class="" id="business-course-sidebar">
+                <router-link to="/business/course">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  课程管理
+                </router-link>
+
+                <b class="arrow"></b>
+              </li>
               <!--
                 二级菜单要显示成激活状态，只需要添加active样式
               -->

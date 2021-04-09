@@ -1,3 +1,26 @@
+-- 课程
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE `course`
+(
+    `id`         CHAR(8)     NOT NULL DEFAULT '' COMMENT 'id',
+    `name`       VARCHAR(50) NOT NULL COMMENT '名称',
+    `summary`    VARCHAR(2000)        DEFAULT NULL COMMENT '概述',
+    `time`       INT(11)              DEFAULT '0' COMMENT '时长|单位秒',
+    `price`      DECIMAL(8, 2)        DEFAULT '0.00' COMMENT '价格（元）',
+    `image`      VARCHAR(100)         DEFAULT NULL COMMENT '封面',
+    `level`      CHAR(1) COMMENT '级别|ONE("1","初级"),TWO("2","中级"),THREE("3","高级")',
+    `charge`     CHAR(1)              DEFAULT NULL COMMENT '收费|CHARGE("C","收费"),FREE("F","免费")',
+    `status`     CHAR(1)              DEFAULT NULL COMMENT '状态|PUBLISH("P","发布"),DRAFT("D","草稿")',
+    `enroll`     INT(11)              DEFAULT '0' COMMENT '报名数',
+    `sort`       INT(11)              DEFAULT NULL COMMENT '顺序',
+    `created_at` datetime(3)          DEFAULT NULL COMMENT '创建时间', -- datetime(3)表示精确到毫秒，界面显示可以只到秒，但落库要精确
+    `updated_at` datetime(3)          DEFAULT NULL COMMENT '修改时间',
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB
+  DEFAULT CHARSET = utf8mb4 COMMENT = '课程表';
+
+INSERT INTO `course` VALUES ('00000001', '测试课程01', '这是一门测试课程', 1200, 19.90, NULL, '2', 'C', 'D', 100, 0, now(), now());
+
 -- 小节
 DROP TABLE IF EXISTS `section`;
 CREATE TABLE `section`

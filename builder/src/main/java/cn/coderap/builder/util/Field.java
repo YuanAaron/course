@@ -15,6 +15,25 @@ public class Field {
     private Boolean nullAble; // 是否可以为空
     private Integer length; // 字符串长度
 
+    private Boolean enums; //是否是枚举
+    private String enumsConst; //枚举常量，比如COURSE_LEVEL
+
+    public Boolean getEnums() {
+        return enums;
+    }
+
+    public void setEnums(Boolean enums) {
+        this.enums = enums;
+    }
+
+    public String getEnumsConst() {
+        return enumsConst;
+    }
+
+    public void setEnumsConst(String enumsConst) {
+        this.enumsConst = enumsConst;
+    }
+
     public String getName() {
         return name;
     }

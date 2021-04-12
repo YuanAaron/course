@@ -201,8 +201,8 @@ export default {
     return {
       courses: [],
       course: {},
-      COURSE_CHARGE: COURSE_CHARGE,
       COURSE_LEVEL: COURSE_LEVEL,
+      COURSE_CHARGE: COURSE_CHARGE,
       COURSE_STATUS: COURSE_STATUS,
     }
   },

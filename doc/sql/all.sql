@@ -1,4 +1,5 @@
 -- 课程
+-- 约定：枚举类型的字段，增加”枚举“中文，并且将对应的枚举类写在[]中
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course`
 (
@@ -8,9 +9,9 @@ CREATE TABLE `course`
     `time`       INT(11)              DEFAULT '0' COMMENT '时长|单位秒',
     `price`      DECIMAL(8, 2)        DEFAULT '0.00' COMMENT '价格（元）',
     `image`      VARCHAR(100)         DEFAULT NULL COMMENT '封面',
-    `level`      CHAR(1) COMMENT '级别|ONE("1","初级"),TWO("2","中级"),THREE("3","高级")',
-    `charge`     CHAR(1)              DEFAULT NULL COMMENT '收费|CHARGE("C","收费"),FREE("F","免费")',
-    `status`     CHAR(1)              DEFAULT NULL COMMENT '状态|PUBLISH("P","发布"),DRAFT("D","草稿")',
+    `level`      CHAR(1) COMMENT '级别|枚举[CourseLevelEnum]:ONE("1","初级"),TWO("2","中级"),THREE("3","高级")',
+    `charge`     CHAR(1)              DEFAULT NULL COMMENT '收费|枚举[CourseChargeEnum]:CHARGE("C","收费"),FREE("F","免费")',
+    `status`     CHAR(1)              DEFAULT NULL COMMENT '状态|枚举[CourseStatusEnum]:PUBLISH("P","发布"),DRAFT("D","草稿")',
     `enroll`     INT(11)              DEFAULT '0' COMMENT '报名数',
     `sort`       INT(11)              DEFAULT NULL COMMENT '顺序',
     `created_at` datetime(3)          DEFAULT NULL COMMENT '创建时间', -- datetime(3)表示精确到毫秒，界面显示可以只到秒，但落库要精确

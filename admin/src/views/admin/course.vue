@@ -45,6 +45,10 @@
               <span class="badge badge-info">时长：{{course.time}}</span>
             </p>
             <p>
+              <button v-on:click="toChapter(course)" class="btn btn-white btn-xs btn-info btn-round">
+                大章
+              </button>
+
               <button v-on:click="edit(course)" class="btn btn-white btn-xs btn-info btn-round">
                 编辑
               </button>
@@ -257,6 +261,14 @@ export default {
 
   },
   methods: {
+    //点击【大章】
+    //组件（页面）间传输数据可以用h5原生的localStorage、sessionStorage，也可以用js全局变量，也可以用vuex store，
+    //但后两者在页面刷新时会丢失数据，所以推荐使用h5原生。
+    toChapter(course) {
+      let _this=this;
+      SessionStorage.set("course",course);
+      _this.$router.push("/business/chapter");
+    },
     //点击【删除】
     del(id) {
       let _this = this;

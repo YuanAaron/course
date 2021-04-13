@@ -1,6 +1,14 @@
 <template>
   <div>
+    <h3>{{course.name}}</h3>
     <p>
+      <!--不带参数的跳转可以直接用router-link（类似a标签），如果还有其他操作，可以写个click方法。比如从课程跳转到大章时，需要先缓存课程信息，所以写click方法-->
+      <router-link to="/business/course" class="btn btn-white btn-default btn-round">
+        <!--fa(fontawesome)：图标样式-->
+        <i class="ace-icon fa fa-arrow-left"></i>
+        返回课程
+      </router-link>
+      &nbsp;
       <button v-on:click="add()" class="btn btn-white btn-default btn-round">
         <!--fa(fontawesome)：图标样式-->
         <i class="ace-icon fa fa-edit red2"></i>
@@ -150,7 +158,8 @@ export default {
     return {
       chapters: [],
       //新增、编辑模态框中的内容
-      chapter: {}
+      chapter: {},
+      course: {}
     }
   },
   mounted: function() {
@@ -159,6 +168,14 @@ export default {
     //sidebar激活样式方法一
     // this.$parent.activeSideBar("business-chapter-sidebar");
     _this.$refs.pagination.size = 5;
+    //1、页面从课程跳过来，有没有{}影响不大
+    //2、直接访问大章页面，有{}返回{},没有{}返回undefined，{}.name不会报错，而undefined.name会报错
+    let course  = SessionStorage.get("course") || {};
+    //此时是直接访问的大章页面
+    if (Tool.isEmpty(course)) {
+      _this.$router.push("/welcome");
+    }
+    _this.course = course;
     _this.list(1);
 
   },

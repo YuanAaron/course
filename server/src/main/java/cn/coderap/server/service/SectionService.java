@@ -10,6 +10,7 @@ import cn.coderap.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -51,8 +52,10 @@ public class SectionService {
      * 保存，id没有值时新增，有值时更新
      * @param sectionDto
      */
+    @Transactional
     public void save(SectionDto sectionDto) {
         Section section = CopyUtil.copy(sectionDto, Section.class);
+        //一次操作（新增小节或修改小节时长）会更新或修改多张表（section和course），一般为了保证数据一致，需要增加事务处理
         if (StringUtils.isEmpty(section.getId())) {
             insert(section);
         } else {

@@ -1,7 +1,7 @@
 package cn.coderap.business.controller.admin;
 
 import cn.coderap.server.dto.SectionDto;
-import cn.coderap.server.dto.PageDto;
+import cn.coderap.server.dto.SectionPageDto;
 import cn.coderap.server.dto.ResponseDto;
 import cn.coderap.server.service.SectionService;
 import cn.coderap.server.util.ValidatorUtil;
@@ -23,14 +23,16 @@ public class SectionController {
 
     /**
      * 列表查询
-     * @param pageDto
+     * @param sectionPageDto
      * @return
      */
     @PostMapping("/list")
-    public ResponseDto list(@RequestBody PageDto pageDto) {
+    public ResponseDto list(@RequestBody SectionPageDto sectionPageDto) {
         ResponseDto responseDto = new ResponseDto();
-        sectionService.list(pageDto);
-        responseDto.setContent(pageDto);
+        ValidatorUtil.require(sectionPageDto.getCourseId(), "课程ID");
+        ValidatorUtil.require(sectionPageDto.getChapterId(), "大章ID");
+        sectionService.list(sectionPageDto);
+        responseDto.setContent(sectionPageDto);
         return responseDto;
     }
 

@@ -1,7 +1,7 @@
 package cn.coderap.server.service;
 
 import cn.coderap.server.dto.SectionDto;
-import cn.coderap.server.dto.PageDto;
+import cn.coderap.server.dto.SectionPageDto;
 import cn.coderap.server.mapper.SectionMapper;
 import cn.coderap.server.pojo.Section;
 import cn.coderap.server.pojo.SectionExample;
@@ -26,11 +26,17 @@ public class SectionService {
      * 列表查询
      * @param pageDto
      */
-    public void list(PageDto pageDto) {
+    public void list(SectionPageDto pageDto) {
         PageHelper.startPage(pageDto.getPage(), pageDto.getSize());
         SectionExample sectionExample = new SectionExample();
         sectionExample.setOrderByClause("sort asc");
         SectionExample.Criteria criteria = sectionExample.createCriteria();
+        if (!StringUtils.isEmpty(pageDto.getCourseId())) {
+            criteria.andCourseIdEqualTo(pageDto.getCourseId());
+        }
+        if (!StringUtils.isEmpty(pageDto.getChapterId())) {
+            criteria.andChapterIdEqualTo(pageDto.getChapterId());
+        }
         List<Section> sectionList = sectionMapper.selectByExample(sectionExample);
 
         PageInfo<Section> pageInfo = new PageInfo<>(sectionList);

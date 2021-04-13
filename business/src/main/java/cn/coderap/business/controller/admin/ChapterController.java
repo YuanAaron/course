@@ -1,7 +1,7 @@
 package cn.coderap.business.controller.admin;
 
 import cn.coderap.server.dto.ChapterDto;
-import cn.coderap.server.dto.PageDto;
+import cn.coderap.server.dto.ChapterPageDto;
 import cn.coderap.server.dto.ResponseDto;
 import cn.coderap.server.service.ChapterService;
 import cn.coderap.server.util.ValidatorUtil;
@@ -34,15 +34,19 @@ public class ChapterController {
      * 前端：post请求有多种参数传递方式，可以通过header里的Content-Type来标识，常见的有两种，一种是表单的方式（jquery默认），
      *      另一种是json(流)的方式（Vue和Angular默认）。
      * 后端：后端对上卖弄两种参数传递方式的接收方式是不一样的，对表单的接收不需要使用@RequestBody，但是对流的接收需要使用@RequestBody
-     * @param pageDto
+     * @param chapterPageDto
      * @return
      */
     @PostMapping("/list")
-    public ResponseDto list(@RequestBody PageDto pageDto) {
-//        LOGGER.info("pageDto: {}",pageDto); //日志输出使用占位符{}
+    public ResponseDto list(@RequestBody ChapterPageDto chapterPageDto) {
+//        LOGGER.info("chapterPageDto: {}",chapterPageDto); //日志输出使用占位符{}
         ResponseDto responseDto = new ResponseDto();
-        chapterService.list(pageDto);
-        responseDto.setContent(pageDto);
+
+        //controller层要严格一点，根据前端的业务校验参数
+        ValidatorUtil.require(chapterPageDto.getCourseId(), "课程ID");
+
+        chapterService.list(chapterPageDto);
+        responseDto.setContent(chapterPageDto);
         return responseDto;
     }
 

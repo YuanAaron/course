@@ -1,84 +1,159 @@
 <template>
   <div>
-    <p>
-      <button v-on:click="add()" class="btn btn-white btn-default btn-round">
-        <i class="ace-icon fa fa-edit red2"></i>
-        新增
-      </button>
-      &nbsp;
-      <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
-        <i class="ace-icon fa fa-refresh red2"></i>
-        刷新
-      </button>
-    </p>
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          <button v-on:click="add()" class="btn btn-white btn-default btn-round">
+            <i class="ace-icon fa fa-edit red2"></i>
+            新增
+          </button>
+          &nbsp;
+          <button v-on:click="all()" class="btn btn-white btn-default btn-round">
+            <i class="ace-icon fa fa-refresh red2"></i>
+            刷新
+          </button>
+        </p>
+        <table id="level1-table" class="table  table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>id</th>
+            <th>名称</th>
+            <th>顺序</th>
+            <td>操作</td>
+          </tr>
+          </thead>
 
-    <pagination ref="pagination" v-bind:list="list" v-bind:itemCount="3"></pagination>
+          <tbody>
+          <tr v-for="category in level1" v-on:click="onclicklevel1(category)">
+            <td>{{category.id}}</td>
+            <td>{{category.name}}</td>
+            <td>{{category.sort}}</td>
+            <td>
+              <div class="hidden-sm hidden-xs btn-group">
+                <button v-on:click="edit(category)" class="btn btn-xs btn-info">
+                  <i class="ace-icon fa fa-pencil bigger-120"></i>
+                </button>
 
-    <table id="simple-table" class="table  table-bordered table-hover">
-      <thead>
-      <tr>
-        <th>id</th>
-        <th>父id</th>
-        <th>名称</th>
-        <th>顺序</th>
-        <td>操作</td>
-      </tr>
-      </thead>
+                <button v-on:click="del(category.id)" class="btn btn-xs btn-danger">
+                  <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                </button>
+              </div>
 
-      <tbody>
-      <tr v-for="category in categorys">
-        <td>{{category.id}}</td>
-        <td>{{category.parent}}</td>
-        <td>{{category.name}}</td>
-        <td>{{category.sort}}</td>
-        <td>
-          <div class="hidden-sm hidden-xs btn-group">
-            <button v-on:click="edit(category)" class="btn btn-xs btn-info">
-              <i class="ace-icon fa fa-pencil bigger-120"></i>
-            </button>
+              <div class="hidden-md hidden-lg">
+                <div class="inline pos-rel">
+                  <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                  </button>
 
-            <button v-on:click="del(category.id)" class="btn btn-xs btn-danger">
-              <i class="ace-icon fa fa-trash-o bigger-120"></i>
-            </button>
-          </div>
-
-          <div class="hidden-md hidden-lg">
-            <div class="inline pos-rel">
-              <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-              </button>
-
-              <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                <li>
-                  <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+                  <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                    <li>
+                      <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
                                   <span class="blue">
                                     <i class="ace-icon fa fa-search-plus bigger-120"></i>
                                   </span>
-                  </a>
-                </li>
+                      </a>
+                    </li>
 
-                <li>
-                  <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+                    <li>
+                      <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
                                   <span class="green">
                                     <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
                                   </span>
-                  </a>
-                </li>
+                      </a>
+                    </li>
 
-                <li>
-                  <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+                    <li>
+                      <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
                                   <span class="red">
                                     <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                   </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <p>
+          <button v-on:click="add()" class="btn btn-white btn-default btn-round">
+            <i class="ace-icon fa fa-edit red2"></i>
+            新增
+          </button>
+          &nbsp;
+          <button v-on:click="all()" class="btn btn-white btn-default btn-round">
+            <i class="ace-icon fa fa-refresh red2"></i>
+            刷新
+          </button>
+        </p>
+        <table id="level2-table" class="table  table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>id</th>
+            <th>名称</th>
+            <th>顺序</th>
+            <td>操作</td>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr v-for="category in level2">
+            <td>{{category.id}}</td>
+            <td>{{category.name}}</td>
+            <td>{{category.sort}}</td>
+            <td>
+              <div class="hidden-sm hidden-xs btn-group">
+                <button v-on:click="edit(category)" class="btn btn-xs btn-info">
+                  <i class="ace-icon fa fa-pencil bigger-120"></i>
+                </button>
+
+                <button v-on:click="del(category.id)" class="btn btn-xs btn-danger">
+                  <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                </button>
+              </div>
+
+              <div class="hidden-md hidden-lg">
+                <div class="inline pos-rel">
+                  <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                  </button>
+
+                  <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                    <li>
+                      <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+                                  <span class="blue">
+                                    <i class="ace-icon fa fa-search-plus bigger-120"></i>
+                                  </span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                  <span class="green">
+                                    <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                  </span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+                                  <span class="red">
+                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                  </span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <div id="form-modal" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
@@ -125,22 +200,21 @@
 </template>
 
 <script>
-import Pagination from "@/components/pagination";
 
 export default {
-  components: {Pagination},
   //[Vue warn]: Do not use built-in or reserved HTML elements as component id: section
   name: 'business-category',
   data: function () {
     return {
       categorys: [],
       category: {},
+      level1: [],
+      level2: [],
     }
   },
   mounted: function() {
     let _this = this;
-    _this.$refs.pagination.size = 5;
-    _this.list(1);
+    _this.all();
 
   },
   methods: {
@@ -153,7 +227,7 @@ export default {
           Loading.hide();
           let resd = res.data;
           if (resd.success) {
-            _this.list(1);
+            _this.all();
             Toast.success("删除成功!")
           }
         })
@@ -184,7 +258,7 @@ export default {
         let resd = res.data;
         if (resd.success) {
           $("#form-modal").modal("hide");
-          _this.list(1);
+          _this.all();
           Toast.success("保存成功！")
         } else {
           Toast.warning(resd.message);
@@ -199,18 +273,37 @@ export default {
 
     },
     //列表查询
-    list(page) {
+    all() {
       let _this = this;
       Loading.show();
-      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/category/list',{
-        page: page,
-        size: _this.$refs.pagination.size
-      }).then(res => {
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/category/all').then(res => {
         Loading.hide();
         let resd = res.data;
-        _this.categorys = resd.content.list;
-        _this.$refs.pagination.render(page,resd.content.total);
+        _this.categorys = resd.content;
+
+        // 将所有记录格式化成树形结构
+        for (let i = 0; i < _this.categorys.length; i++) {
+          let c1 = _this.categorys[i];
+          //一级分类的父id默认设定为“00000000”
+          if (c1.parent === '00000000') {
+            _this.level1.push(c1);
+            for (let j = 0; j< _this.categorys.length; j++) {
+              let c2 = _this.categorys[j];
+              // 二级分类c2的父亲是c1
+              if (c2.parent === c1.id) {
+                if (Tool.isEmpty(c1.children)) {
+                  c1.children=[];
+                }
+                c1.children.push(c2);
+              }
+            }
+          }
+        }
       })
+    },
+    onclicklevel1(category) {
+      let _this = this;
+      _this.level2 = category.children;
     }
   }
 }

@@ -22,6 +22,18 @@ public class CategoryService {
     private CategoryMapper categoryMapper;
 
     /**
+     * 列表查询：分类的总数不多，不需要分页，一次查询出所有数据，由前端来处理显示
+     * @param pageDto
+     */
+    public List<CategoryDto> all() {
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.setOrderByClause("sort asc");
+        List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
+        List<CategoryDto> categoryDtoList = CopyUtil.copyList(categoryList, CategoryDto.class);
+        return categoryDtoList;
+    }
+
+    /**
      * 列表查询
      * @param pageDto
      */

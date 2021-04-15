@@ -10,6 +10,7 @@ import cn.coderap.server.util.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -23,7 +24,6 @@ public class CategoryService {
 
     /**
      * 列表查询：分类的总数不多，不需要分页，一次查询出所有数据，由前端来处理显示
-     * @param pageDto
      */
     public List<CategoryDto> all() {
         CategoryExample categoryExample = new CategoryExample();
@@ -84,7 +84,26 @@ public class CategoryService {
      * 删除
      * @param id
      */
+    @Transactional //重要
     public void delete(String id) {
+        deleteChildren(id);
         categoryMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 删除子分类
+     * @param id
+     */
+    private void deleteChildren(String id) {
+        Category category = categoryMapper.selectByPrimaryKey(id);
+        if ("00000000".equals(category.getParent())) {
+            //如果是一级分类，需要删除其下的二级分类
+            CategoryExample categoryExample = new CategoryExample();
+            CategoryExample.Criteria criteria = categoryExample.createCriteria();
+            criteria.andParentEqualTo(category.getId());
+            categoryMapper.deleteByExample(categoryExample);
+        }
+
+
     }
 }

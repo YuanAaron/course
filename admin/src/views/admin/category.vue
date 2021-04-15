@@ -3,9 +3,9 @@
     <div class="row">
       <div class="col-md-6">
         <p>
-          <button v-on:click="add()" class="btn btn-white btn-default btn-round">
+          <button v-on:click="add1()" class="btn btn-white btn-default btn-round">
             <i class="ace-icon fa fa-edit red2"></i>
-            新增
+            新增一级
           </button>
           &nbsp;
           <button v-on:click="all()" class="btn btn-white btn-default btn-round">
@@ -26,7 +26,7 @@
           <!--动态class：v-bind:class=json表达式，key为样式，value为样式显示的条件，即value为true时，key的样式生效。
           此外，它可以和原生的class并存-->
           <tbody>
-          <tr v-for="category in level1" v-on:click="onclicklevel1(category)" v-bind:class="{active:category.id===active.id}">
+          <tr v-for="category in level1" v-on:click="onclicklevel1(category)" v-bind:class="{'active':category.id===active.id}">
             <td>{{category.id}}</td>
             <td>{{category.name}}</td>
             <td>{{category.sort}}</td>
@@ -81,9 +81,9 @@
       </div>
       <div class="col-md-6">
         <p>
-          <button v-on:click="add()" class="btn btn-white btn-default btn-round">
+          <button v-on:click="add2()" class="btn btn-white btn-default btn-round">
             <i class="ace-icon fa fa-edit red2"></i>
-            新增
+            新增二级
           </button>
         </p>
         <table id="level2-table" class="table  table-bordered table-hover">
@@ -163,10 +163,9 @@
           <div class="modal-body">
             <form class="form-horizontal">
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">父id</label>
+                  <label class="col-sm-2 control-label">父分类</label>
                   <div class="col-sm-10">
-                    <input type="text" v-model="category.parent" class="form-control"
-                           placeholder="父id">
+                    <p  class="form-control-static">{{active.name||"无"}}</p>
                   </div>
                 </div>
                 <div class="form-group">
@@ -263,10 +262,27 @@ export default {
         }
       })
     },
-    //点击【新增】
-    add() {
+    //点击【新增一级】
+    add1() {
       let _this=this;
-      _this.category={};
+      _this.active={}; //重要
+      _this.level2=[]; //TODO 啥作用？？？
+      _this.category={
+        parent: '00000000'
+      };
+      $("#form-modal").modal("show");
+
+    },
+    //点击【新增二级】
+    add2() {
+      let _this=this;
+      if (Tool.isEmpty(_this.active)) {
+        Toast.warning("请先点击一级分类");
+        return;
+      }
+      _this.category={
+        parent: _this.active.id
+      };
       $("#form-modal").modal("show");
 
     },

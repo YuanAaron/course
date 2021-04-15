@@ -266,7 +266,7 @@ export default {
     add1() {
       let _this=this;
       _this.active={}; //重要
-      _this.level2=[]; //TODO 啥作用？？？
+//      _this.level2=[]; //TODO 啥作用？？？
       _this.category={
         parent: '00000000'
       };
@@ -314,6 +314,16 @@ export default {
             }
           }
         }
+
+        //问题：新增、修改、删除二级分类时，没有马上刷新出来，但再次点击一下一级分类中选中的表格行就能够显示出二级分类列表
+        //解决方案：让程序自动触发点击事件，点击激活的行
+        //为什么在这里解决：对一级或二级分类的增删改查,都会调用all()刷新数据,所以在all()的后面触发一次表格行点击事件
+        this.level2=[];
+        //注意：界面的渲染需要等Vue绑定好变量后才做，所以延时100ms
+        //小技巧：当界面用了Vue，又用了jquery(特别是第三方插件)，当觉得代码没问题，但是效果没出来时，可以加个小延时，等待Vue绑定好变量再跑jquery代码
+        setTimeout(function () {
+          $("tr.active").trigger("click");
+        },100);
       })
     },
     onclicklevel1(category) {

@@ -23,8 +23,10 @@
           </tr>
           </thead>
 
+          <!--动态class：v-bind:class=json表达式，key为样式，value为样式显示的条件，即value为true时，key的样式生效。
+          此外，它可以和原生的class并存-->
           <tbody>
-          <tr v-for="category in level1" v-on:click="onclicklevel1(category)">
+          <tr v-for="category in level1" v-on:click="onclicklevel1(category)" v-bind:class="{active:category.id===active.id}">
             <td>{{category.id}}</td>
             <td>{{category.name}}</td>
             <td>{{category.sort}}</td>
@@ -82,11 +84,6 @@
           <button v-on:click="add()" class="btn btn-white btn-default btn-round">
             <i class="ace-icon fa fa-edit red2"></i>
             新增
-          </button>
-          &nbsp;
-          <button v-on:click="all()" class="btn btn-white btn-default btn-round">
-            <i class="ace-icon fa fa-refresh red2"></i>
-            刷新
           </button>
         </p>
         <table id="level2-table" class="table  table-bordered table-hover">
@@ -210,6 +207,7 @@ export default {
       category: {},
       level1: [],
       level2: [],
+      active: {},
     }
   },
   mounted: function() {
@@ -282,6 +280,7 @@ export default {
         _this.categorys = resd.content;
 
         // 将所有记录格式化成树形结构
+        _this.level1 = [];
         for (let i = 0; i < _this.categorys.length; i++) {
           let c1 = _this.categorys[i];
           //一级分类的父id默认设定为“00000000”
@@ -303,8 +302,17 @@ export default {
     },
     onclicklevel1(category) {
       let _this = this;
+      _this.active = category;
       _this.level2 = category.children;
     }
   }
 }
 </script>
+
+<style scoped>
+  .active td{
+    background-color: #d6e9c6 !important;
+    color: #1e82d2;
+    font-weight: bolder;
+  }
+</style>
